@@ -3,6 +3,7 @@ package uiDesktop;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 
 import entidades.Personaje;
 import negocio.CtrlPersonaje;
+import utils.ApplicationException;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -27,7 +29,8 @@ public class PanelPrincipal extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Personaje[] jugador;
+	private Personaje jugador1;
+	private Personaje jugador2;
 	
 	private JTextField txtJugador1;
 	private JTextField txtJugador2;
@@ -163,25 +166,29 @@ public class PanelPrincipal extends JPanel {
 		btnLimpiar.setBounds(332, 191, 98, 26);
 		add(btnLimpiar);
 		
-		jugador=new Personaje[2];
 		cargarPersonajes();
 	}
 	
 	
 	
 	public void cargarPersonajes() {
-		dlm=new DefaultListModel<Personaje>();
-		Personaje[] personajes = CtrlPersonaje.getCtrl().getPersonajes();
-		for(int i=0;i<personajes.length;i++) {
-			dlm.addElement(personajes[i]);
-		}
-		listPersonajes.setModel(dlm);
-		if(jugador[0]!=null) {
-			dlm.removeElement(jugador[0]);
-		}
-		if(jugador[1]!=null) {
-			dlm.removeElement(jugador[1]);
-		}
+		try {
+			Personaje[] personajes=CtrlPersonaje.getCtrl().getPersonajes();
+			dlm=new DefaultListModel<Personaje>();
+			for(int i=0;i<personajes.length;i++) {
+				dlm.addElement(personajes[i]);
+			}
+			listPersonajes.setModel(dlm);
+			
+			if(jugador1!=null) {
+				dlm.removeElement(jugador1);
+			}
+			if(jugador2!=null) {
+				dlm.removeElement(jugador2);
+			}
+		} catch (ApplicationException ae) {
+			JOptionPane.showMessageDialog(this, ae.getMessage());;
+		}	
 	}
 	
 	private void crearPersonaje() {
@@ -196,51 +203,59 @@ public class PanelPrincipal extends JPanel {
 	}
 	
 	private void eliminar() {
-		Personaje p=listPersonajes.getSelectedValue();
-		CtrlPersonaje.getCtrl().delete(p);
-		dlm.removeElement(p);
+		try {
+			Personaje p=listPersonajes.getSelectedValue();
+			CtrlPersonaje.getCtrl().delete(p);
+			dlm.removeElement(p);
+		} catch (ApplicationException ae) {
+			JOptionPane.showMessageDialog(this, ae.getMessage());
+		}
 	}
 	
 	
 	
 	private void seleccionar1() {
-		seleccionar(txtJugador1, 0);
+		jugador1=seleccionar(jugador1);
+		txtJugador1.setText(jugador1.toString());
+		habilitarCombate();
 	}
 	
 	private void seleccionar2() {
-		seleccionar(txtJugador2, 1);
+		jugador2=seleccionar(jugador2);
+		txtJugador2.setText(jugador2.toString());
+		habilitarCombate();
 	}
 	
-	private void seleccionar(JTextField txt, int i) {
-		if(jugador[i]!=null) {
-			dlm.addElement(jugador[i]);
+	private Personaje seleccionar(Personaje p) {
+		if(p!=null) {
+			dlm.addElement(p);
 		}
-		jugador[i]=listPersonajes.getSelectedValue();
-		txt.setText(jugador[i].toString());
-		dlm.removeElement(jugador[i]);
-		
+		p=listPersonajes.getSelectedValue();
+		dlm.removeElement(p);	
 		btnLimpiar.setEnabled(true);
-		if(jugador[0]!=null && jugador[1]!=null) {
+		return p;
+	}
+	
+	private void habilitarCombate() {
+		if(jugador1!=null && jugador2!=null) {
 			btnCombate.setEnabled(true);
 		}
 	}
 	
-	private void limpiar() {
-		if(jugador[0]!=null) {
-			dlm.addElement(jugador[0]);
+	public void limpiar() {
+		if(jugador1!=null) {
+			dlm.addElement(jugador1);
 			txtJugador1.setText("");
-			jugador[0]=null;
+			jugador1=null;
 		}
-		if(jugador[1]!=null) {
-			dlm.addElement(jugador[1]);
+		if(jugador2!=null) {
+			dlm.addElement(jugador2);
 			txtJugador2.setText("");
-			jugador[1]=null;
+			jugador2=null;
 		}
 		btnLimpiar.setEnabled(false);
 		btnCombate.setEnabled(false);
 	}
-	
-	
 	
 	private void habilitarBotones() {
 		if(listPersonajes.getSelectedIndex()==-1) {

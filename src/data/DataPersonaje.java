@@ -10,7 +10,7 @@ import utils.ApplicationException;
 
 public class DataPersonaje {
 	
-	public void add(Personaje p) {
+	public void add(Personaje p) throws ApplicationException {
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
 		
@@ -33,23 +33,19 @@ public class DataPersonaje {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException ae) {
-			ae.printStackTrace();
+			throw new ApplicationException("El nombre ingresado ya existe");
 		} finally {
 			try {
 				if(rs!=null) rs.close();
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ApplicationException("Error inesperado al cerrar la conexión");
 			}
 		}		
 	}
 	
-	public void update(Personaje p) {
+	public void update(Personaje p) throws ApplicationException {
 		PreparedStatement stmt=null;
 		
 		try {
@@ -67,22 +63,18 @@ public class DataPersonaje {
 			stmt.execute();
 					
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			e.printStackTrace();
+			throw new ApplicationException("El nombre ingresado ya existe");
 		} finally {
 			try {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
+				throw new ApplicationException("Error inesperado al cerrar la conexión");
 			}
 		}
 	}
 
-	public void delete(Personaje p){
+	public void delete(Personaje p) throws ApplicationException {
 		PreparedStatement stmt=null;
 		
 		try {
@@ -93,22 +85,18 @@ public class DataPersonaje {
 			stmt.execute();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			e.printStackTrace();
+			throw new ApplicationException("Error al eliminar personaje");
 		} finally {
 			try {
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
+				throw new ApplicationException("Error inesperado al cerrar la conexión");
 			}
 		}	
 	}
 	
-	public Personaje[] getAll() {
+	public Personaje[] getAll() throws ApplicationException {
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
 		
 		PreparedStatement stmt=null;
@@ -136,18 +124,14 @@ public class DataPersonaje {
 			}		
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			e.printStackTrace();
+			throw new ApplicationException("Error al obtener los personajes");
 		} finally {
 			try {
 				if(rs!=null)rs.close();
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
+				throw new ApplicationException("Error inesperado al cerrar la conexión");
 			}
 		}
 		

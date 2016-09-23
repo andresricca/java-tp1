@@ -25,6 +25,7 @@ public class CtrlPersonaje {
 	private DataPersonaje dataPersonaje;
 	
 	public CtrlPersonaje() {
+//Consultar		
 		dataPersonaje=new DataPersonaje();
 		puntosInicio=200;
 		maxDefensa=20;
@@ -55,7 +56,7 @@ public class CtrlPersonaje {
 		}
 	}
 	
-	public void delete(Personaje p) {
+	public void delete(Personaje p) throws ApplicationException {
 		dataPersonaje.delete(p);
 	}
 	
@@ -85,7 +86,7 @@ public class CtrlPersonaje {
 		return valido;
 	}
 	
-	public Personaje[] getPersonajes() {
+	public Personaje[] getPersonajes() throws ApplicationException {
 		return dataPersonaje.getAll();
 	}
 

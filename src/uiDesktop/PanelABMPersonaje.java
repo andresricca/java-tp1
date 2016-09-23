@@ -227,7 +227,6 @@ public class PanelABMPersonaje extends JPanel {
 		} catch(ApplicationException ae) {
 			JOptionPane.showMessageDialog(this, ae.getMessage());
 		} catch(Exception e) {
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Error inesperado al guardar");
 		}		
 	}
