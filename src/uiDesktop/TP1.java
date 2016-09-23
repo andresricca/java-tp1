@@ -18,7 +18,6 @@ public class TP1 {
 	PanelPrincipal panelPrincipal;
 	PanelABMPersonaje panelABMPersonaje;
 	
-//Consultar
 	private static TP1 window;
 	
 	public static void showPanel(String nombrePanel) {

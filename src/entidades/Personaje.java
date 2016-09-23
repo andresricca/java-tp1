@@ -1,8 +1,14 @@
 package entidades;
 
+import utils.ApplicationException;
+
 
 
 public class Personaje {
+	
+	private static int puntosInicio=200;
+	private static int maxDefensa=20;
+	private static int maxEvasion=80;
 	
 	private int id;
 	private String nombre;
@@ -57,6 +63,36 @@ public class Personaje {
 		this.puntosTotales = puntosTotales;
 	}
 	
+	
+	public Personaje() {
+		this.puntosTotales=puntosInicio;
+	}
+	
+	
+	public boolean isValid() throws ApplicationException {
+		boolean valido=true;
+		if(nombre.length()==0) {
+			valido=false;
+			throw new ApplicationException("Debe ingresar un nombre");
+		}
+		if(valido && vida<1 || energia<1 || defensa<1 || evasion<1) {
+			valido=false;
+			throw new ApplicationException("Los puntos asignados a los atributos deben ser mayores o iguales que 1");
+		}
+		if(valido && defensa>maxDefensa) {
+			valido=false;
+			throw new ApplicationException("Los puntos asignados a la defensa no pueden ser mayores que "+maxDefensa);
+		}
+		if(valido && evasion>maxEvasion) {
+			valido=false;
+			throw new ApplicationException("Los puntos asignados a la evasion no pueden ser mayores que "+maxEvasion);
+		}
+		if(vida+energia+defensa+evasion>puntosTotales) {
+			valido=false;
+			throw new ApplicationException("Los puntos asignados a los atributos superan la cantidad de puntos disponibles");
+		}
+		return valido;
+	}
 	
 	
 	@Override
