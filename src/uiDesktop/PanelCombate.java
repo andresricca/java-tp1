@@ -41,6 +41,7 @@ public class PanelCombate extends JPanel {
 	private JLabel lblVida2;
 	private JProgressBar barEnergia2;
 	private JLabel lblEnergia2;
+	private JButton btnAbandonarCombate;
 
 	
 	
@@ -168,6 +169,15 @@ public class PanelCombate extends JPanel {
 		btnDefender.setBounds(335, 365, 118, 34);
 		add(btnDefender);
 		
+		btnAbandonarCombate = new JButton("Cancelar combate");
+		btnAbandonarCombate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+			}
+		});
+		btnAbandonarCombate.setBounds(20, 494, 158, 26);
+		add(btnAbandonarCombate);
+		
 	}
 	
 	
@@ -241,6 +251,10 @@ public class PanelCombate extends JPanel {
 			JOptionPane.showMessageDialog(this, ae.getMessage());
 		}
 		actualizarCombate();
+	}
+	
+	private void cancelar() {
+		TP1.showPanel(TP1.PANEL_PRINCIPAL);
 	}
 	
 }

@@ -120,7 +120,7 @@ public class Personaje {
 	public boolean evadeAtaque() {
 		Random r=new Random();
 		boolean evade=false;
-		if((r.nextDouble()*100)<evasion) {
+		if((r.nextDouble()*100)<=evasion) {
 			evade=true;
 		}
 		return evade;
