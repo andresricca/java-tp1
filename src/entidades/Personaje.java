@@ -65,7 +65,7 @@ public class Personaje {
 	
 	
 	public Personaje() {
-		this.puntosTotales=puntosInicio;
+		//this.puntosTotales=puntosInicio;
 	}
 	
 	
