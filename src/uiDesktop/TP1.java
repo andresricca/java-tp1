@@ -13,10 +13,12 @@ public class TP1 {
 	
 	final static String PANEL_PRINCIPAL="Panel Principal";
 	final static String PANEL_ABMPERSONAJE="Panel ABMPersonaje";
+	final static String PANEL_COMBATE="Panel Combate";
 	
 	CardLayout card;
 	PanelPrincipal panelPrincipal;
 	PanelABMPersonaje panelABMPersonaje;
+	PanelCombate panelCombate;
 	
 	private static TP1 window;
 	
@@ -31,6 +33,10 @@ public class TP1 {
 	
 	public static PanelABMPersonaje getPanelABMPersonaje() {
 		return window.panelABMPersonaje;
+	}
+	
+	public static PanelCombate getPanelCombate() {
+		return window.panelCombate;
 	}
 	
 	
@@ -72,8 +78,10 @@ public class TP1 {
 		
 		panelPrincipal=new PanelPrincipal();
 		panelABMPersonaje=new PanelABMPersonaje();
+		panelCombate=new PanelCombate();
 		frame.getContentPane().add(panelPrincipal, PANEL_PRINCIPAL);
 		frame.getContentPane().add(panelABMPersonaje, PANEL_ABMPERSONAJE);
+		frame.getContentPane().add(panelCombate, PANEL_COMBATE);
 	}
 
 }

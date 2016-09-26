@@ -27,10 +27,6 @@ public class PanelABMPersonaje extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static int puntosInicio=200;
-	private static int maxDefensa=20;
-	private static int maxEvasion=80;
-	
 	private JTextField txtId;
 	private JTextField txtNombre;
 	private JTextField txtPuntos;
@@ -188,7 +184,7 @@ public class PanelABMPersonaje extends JPanel {
 	
 	public void prepararCrear() {
 		limpiar();		
-		puntosTotales=puntosInicio;
+		puntosTotales=Personaje.PUNTOS_INICIO;
 		txtId.setText("0");
 		actualizarValores();
 	}
@@ -260,8 +256,8 @@ public class PanelABMPersonaje extends JPanel {
 		
 		limitarSpinner(spVida, Integer.MAX_VALUE);
 		limitarSpinner(spEnergia, Integer.MAX_VALUE);
-		limitarSpinner(spDefensa, maxDefensa);
-		limitarSpinner(spEvasion, maxEvasion);
+		limitarSpinner(spDefensa, Personaje.MAX_DEFENSA);
+		limitarSpinner(spEvasion, Personaje.MAX_EVASION);
 	}
 	
 	private void limitarSpinner(JSpinner s, int tope) {

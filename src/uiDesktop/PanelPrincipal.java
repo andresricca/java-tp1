@@ -141,6 +141,7 @@ public class PanelPrincipal extends JPanel {
 		btnCombate.setEnabled(false);
 		btnCombate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				combate();
 			}
 		});
 		btnCombate.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -269,5 +270,12 @@ public class PanelPrincipal extends JPanel {
 			btnSeleccionar1.setEnabled(true);
 			btnSeleccionar2.setEnabled(true);
 		}
+	}
+	
+	
+	
+	private void combate() {
+		TP1.getPanelCombate().nuevoCombate(jugador1, jugador2);
+		TP1.showPanel(TP1.PANEL_COMBATE);
 	}
 }

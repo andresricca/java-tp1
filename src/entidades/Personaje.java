@@ -1,14 +1,16 @@
 package entidades;
 
+import java.util.Random;
+
 import utils.ApplicationException;
 
 
 
 public class Personaje {
 	
-	private static int puntosInicio=200;
-	private static int maxDefensa=20;
-	private static int maxEvasion=80;
+	public final static int PUNTOS_INICIO=200;
+	public final static int MAX_DEFENSA=20;
+	public final static int MAX_EVASION=80;
 	
 	private int id;
 	private String nombre;
@@ -17,6 +19,9 @@ public class Personaje {
 	private int defensa;
 	private int evasion;
 	private int puntosTotales;
+	
+	private int usoEnergia;
+	private int daño;
 	
 	
 	
@@ -63,10 +68,18 @@ public class Personaje {
 		this.puntosTotales = puntosTotales;
 	}
 	
+	public int getVidaRestante() {
+		return vida-daño;
+	}
+	public int getEnergiaRestante() {
+		return energia-usoEnergia;
+	}
+	
 	
 	public Personaje() {
 		//this.puntosTotales=puntosInicio;
 	}
+	
 	
 	
 	public boolean isValid() throws ApplicationException {
@@ -79,13 +92,13 @@ public class Personaje {
 			valido=false;
 			throw new ApplicationException("Los puntos asignados a los atributos deben ser mayores o iguales que 1");
 		}
-		if(valido && defensa>maxDefensa) {
+		if(valido && defensa>MAX_DEFENSA) {
 			valido=false;
-			throw new ApplicationException("Los puntos asignados a la defensa no pueden ser mayores que "+maxDefensa);
+			throw new ApplicationException("Los puntos asignados a la defensa no pueden ser mayores que "+MAX_DEFENSA);
 		}
-		if(valido && evasion>maxEvasion) {
+		if(valido && evasion>MAX_EVASION) {
 			valido=false;
-			throw new ApplicationException("Los puntos asignados a la evasion no pueden ser mayores que "+maxEvasion);
+			throw new ApplicationException("Los puntos asignados a la evasion no pueden ser mayores que "+MAX_EVASION);
 		}
 		if(vida+energia+defensa+evasion>puntosTotales) {
 			valido=false;
@@ -93,6 +106,41 @@ public class Personaje {
 		}
 		return valido;
 	}
+	
+	
+	
+	public void realizarAtaque(int puntos) {
+		usoEnergia+=puntos;
+	}
+	
+	public void recibirAtaque(int puntos) {
+		daño+=puntos;
+	}
+	
+	public boolean evadeAtaque() {
+		Random r=new Random();
+		boolean evade=false;
+		if((r.nextDouble()*100)<evasion) {
+			evade=true;
+		}
+		return evade;
+	}
+	
+	public void defiende() {
+		daño-=vida*defensa/250;
+		usoEnergia-=energia*defensa/100;
+		if(daño<0) {
+			daño=0;
+		}
+		if(usoEnergia<0) {
+			usoEnergia=0;
+		}
+	}
+	
+	public void recibirPremio(int premio) {
+		puntosTotales+=premio;
+	}
+	
 	
 	
 	@Override
