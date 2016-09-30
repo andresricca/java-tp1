@@ -11,6 +11,7 @@ public class Personaje {
 	public final static int PUNTOS_INICIO=200;
 	public final static int MAX_DEFENSA=20;
 	public final static int MAX_EVASION=80;
+	public final static int PREMIO=10;
 	
 	private int id;
 	private String nombre;
@@ -21,7 +22,7 @@ public class Personaje {
 	private int puntosTotales;
 	
 	private int usoEnergia;
-	private int daño;
+	private int danio;
 	
 	
 	
@@ -69,7 +70,7 @@ public class Personaje {
 	}
 	
 	public int getVidaRestante() {
-		return vida-daño;
+		return vida-danio;
 	}
 	public int getEnergiaRestante() {
 		return energia-usoEnergia;
@@ -77,7 +78,7 @@ public class Personaje {
 	
 	
 	public Personaje() {
-		//this.puntosTotales=puntosInicio;
+		
 	}
 	
 	
@@ -114,7 +115,9 @@ public class Personaje {
 	}
 	
 	public void recibirAtaque(int puntos) {
-		daño+=puntos;
+		if(!evadeAtaque()) {
+			danio+=puntos;
+		}
 	}
 	
 	public boolean evadeAtaque() {
@@ -127,18 +130,18 @@ public class Personaje {
 	}
 	
 	public void defiende() {
-		daño-=vida*defensa/250;
+		danio-=vida*defensa/250;
 		usoEnergia-=energia*defensa/100;
-		if(daño<0) {
-			daño=0;
+		if(danio<0) {
+			danio=0;
 		}
 		if(usoEnergia<0) {
 			usoEnergia=0;
 		}
 	}
 	
-	public void recibirPremio(int premio) {
-		puntosTotales+=premio;
+	public void recibirPremio() {
+		puntosTotales+=PREMIO;
 	}
 	
 	

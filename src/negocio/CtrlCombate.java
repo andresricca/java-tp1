@@ -6,8 +6,6 @@ import utils.ApplicationException;
 
 public class CtrlCombate {
 	
-	final static int PREMIO=10;
-	
 	private DataPersonaje dataPersonaje;
 	
 	
@@ -39,6 +37,7 @@ public class CtrlCombate {
 	
 	
 	public void nuevoCombate(Personaje jugador1, Personaje jugador2) {
+		//if(jugador1.equals(jugador2))
 		this.jugador1=jugador1;
 		this.jugador2=jugador2;
 		jugadorAtaca=jugador1;
@@ -64,13 +63,11 @@ public class CtrlCombate {
 			throw new ApplicationException("Los puntos para el ataque superan la cantidad de puntos disponibles");
 		}
 		jugadorAtaca.realizarAtaque(puntos);
-		if(!jugadorRecibe.evadeAtaque()) {
-			jugadorRecibe.recibirAtaque(puntos);
-			if(jugadorRecibe.getVidaRestante()<=0) {
-				finCombate=true;
-				jugadorAtaca.recibirPremio(PREMIO);
-				dataPersonaje.update(jugadorAtaca);
-			}
+		jugadorRecibe.recibirAtaque(puntos);
+		if(jugadorRecibe.getVidaRestante()<=0) {
+			finCombate=true;
+			jugadorAtaca.recibirPremio();
+			dataPersonaje.update(jugadorAtaca);
 		}
 		if(!finCombate) {
 			cambiarTurno();

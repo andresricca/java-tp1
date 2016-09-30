@@ -37,7 +37,7 @@ public class FactoryConexion {
 		return instancia;
 	}
 	
-	public Connection getConn() {
+	public Connection getConn() throws ApplicationException {
 		try {
 			if(conn==null || conn.isClosed()) {
 				conn = DriverManager.getConnection(
@@ -46,7 +46,7 @@ public class FactoryConexion {
 				cantConn++;
 			}
 		} catch (SQLException e) {
-			new ApplicationException("Error al conectar a la DB", e);
+			throw new ApplicationException("Error al conectar a la DB", e);
 		}
 		return conn;
 	}
