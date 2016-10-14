@@ -275,7 +275,11 @@ public class PanelPrincipal extends JPanel {
 	
 	
 	private void combate() {
-		TP1.getPanelCombate().nuevoCombate(jugador1, jugador2);
-		TP1.showPanel(TP1.PANEL_COMBATE);
+		try {
+			TP1.getPanelCombate().nuevoCombate(jugador1, jugador2);
+			TP1.showPanel(TP1.PANEL_COMBATE);
+		} catch(ApplicationException ae) {
+			JOptionPane.showMessageDialog(this, ae.getMessage());
+		}
 	}
 }

@@ -36,8 +36,10 @@ public class CtrlCombate {
 	
 	
 	
-	public void nuevoCombate(Personaje jugador1, Personaje jugador2) {
-		//if(jugador1.equals(jugador2))
+	public void nuevoCombate(Personaje jugador1, Personaje jugador2) throws ApplicationException {
+		if(jugador1.equals(jugador2)) {
+			throw new ApplicationException("Los jugadores seleccionados deben ser distintos");
+		}
 		this.jugador1=jugador1;
 		this.jugador2=jugador2;
 		jugadorAtaca=jugador1;

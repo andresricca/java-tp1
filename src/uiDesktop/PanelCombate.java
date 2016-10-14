@@ -182,7 +182,7 @@ public class PanelCombate extends JPanel {
 	
 	
 	
-	public void nuevoCombate(Personaje jugador1, Personaje jugador2) {
+	public void nuevoCombate(Personaje jugador1, Personaje jugador2) throws ApplicationException {
 		ctrlCombate.nuevoCombate(jugador1, jugador2);
 		
 		barVida1.setMaximum(jugador1.getVida());
@@ -254,6 +254,8 @@ public class PanelCombate extends JPanel {
 	}
 	
 	private void cancelar() {
+		TP1.getPanelPrincipal().limpiar();
+		TP1.getPanelPrincipal().cargarPersonajes();
 		TP1.showPanel(TP1.PANEL_PRINCIPAL);
 	}
 	

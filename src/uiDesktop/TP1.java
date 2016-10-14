@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import java.awt.CardLayout;
 import java.awt.Container;
 
-
+//Singleton en data
+//notifyuser aca
+//llamada a combate desde principal
+//usr de la db
+//ataque con mas puntos que los que le quedan de vida al oponente
 
 public class TP1 {
 	
